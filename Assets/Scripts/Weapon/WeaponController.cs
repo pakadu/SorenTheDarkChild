@@ -15,8 +15,11 @@ public class WeaponController : MonoBehaviour
     float currentCooldown;
     public int pierce;
 
+    protected PlayerMovement pm;
+
     protected virtual void Start()
     {
+        pm = FindObjectOfType<PlayerMovement>();
         currentCooldown = cooldownDuration; // So i cant spam shootin
     }
 

@@ -7,10 +7,20 @@ public class PlayerMovement : MonoBehaviour
     //Movement 
     [SerializeField] private float movementSpeed = 5f;
     Rigidbody2D rb;
-    Vector2 moveDir;
+    [HideInInspector]
+    public float lastHorizontalVector;
+    [HideInInspector]
+    public float lastVerticalVector;
+    [HideInInspector]
+    public Vector2 moveDir;
+    [HideInInspector]
+    public Vector2 lastMovedVector;
+    
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        lastMovedVector = new Vector2(1, 0f); //start shooting
     }
 
     // Update is called once per frame
@@ -24,13 +34,22 @@ public class PlayerMovement : MonoBehaviour
         Move();
     }
 
-    void InputManagement()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+  void InputManagement()
+{
+    float moveX = Input.GetAxisRaw("Horizontal");
+    float moveY = Input.GetAxisRaw("Vertical");
 
-        moveDir = new Vector2(moveX, moveY).normalized;
+    moveDir = new Vector2(moveX, moveY).normalized;
+
+    // Update lastMovedVector based on movement direction
+    if (moveDir.magnitude != 0)
+    {
+        lastMovedVector = moveDir;
+        lastHorizontalVector = moveDir.x;
+        lastVerticalVector = moveDir.y;
     }
+}
+
 
     void Move()
     {

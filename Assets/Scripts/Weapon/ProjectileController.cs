@@ -12,8 +12,9 @@ public class ProjectileController : WeaponController
     }
 
     protected override void Attack(){
-        base.Attack();
-        GameObject spawnedProjectile = Instantiate(prefab);
-        spawnedProjectile.transform.position = transform.position; //Position to the parent object (pla)
- }
+    base.Attack();
+    GameObject spawnedProjectile = Instantiate(prefab);
+    spawnedProjectile.transform.position = transform.position; //Position to the parent object (pla)
+    spawnedProjectile.GetComponent<ProjectileBehaviour>().DirectionChecker(pm.lastMovedVector);
+}
 }
